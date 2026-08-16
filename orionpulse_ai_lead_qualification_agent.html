@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OrionPulse — AI Lead Qualification Agent</title>
+<meta name="description" content="OrionPulse AI Lead Qualification Agent — capture, qualify, score and route sales opportunities automatically.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#091525;--navy:#0a1728;--navy2:#0e2138;--blue:#3459d4;--blue2:#6079dc;
+  --cyan:#42a9bd;--green:#1f9a67;--amber:#bf8530;--red:#bd5962;
+  --bg:#f4f6f9;--card:#fff;--line:#dfe5ec;--muted:#728094;--soft:#f8fafc;
+  --shadow:0 25px 70px rgba(9,25,45,.10);--radius:22px
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+h1,h2,h3,h4{font-family:Manrope,sans-serif;letter-spacing:-.035em}
+a{text-decoration:none;color:inherit}
+button,input,select,textarea{font:inherit}
+.container{width:min(1180px,92%);margin:auto}
+.nav{height:74px;position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(244,246,249,.82);backdrop-filter:blur(22px);border-bottom:1px solid rgba(9,25,45,.07)}
+.nav-inner{height:100%;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-family:Manrope;font-weight:800}
+.logo{height:35px;width:35px;border-radius:10px;background:linear-gradient(145deg,#10223b,#5270d8);color:#fff;display:grid;place-items:center;font-size:14px;box-shadow:0 9px 25px rgba(52,89,212,.25)}
+.nav-links{display:flex;gap:26px;font-size:12px;color:#647184;font-weight:700}
+.nav-links a:hover{color:var(--ink)}
+.nav-btn{background:var(--navy);color:#fff;padding:10px 15px;border-radius:10px;font-size:12px;font-weight:700}
+
+.hero{padding:155px 0 75px;position:relative;overflow:hidden;background:
+radial-gradient(circle at 76% 18%,rgba(52,89,212,.14),transparent 28%),
+radial-gradient(circle at 17% 12%,rgba(66,169,189,.08),transparent 25%),var(--bg)}
+.hero:before{content:"";position:absolute;inset:0;opacity:.42;background-image:linear-gradient(rgba(15,36,60,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(15,36,60,.04) 1px,transparent 1px);background-size:58px 58px;mask-image:linear-gradient(#000,transparent 85%)}
+.hero-content{position:relative;text-align:center;max-width:920px;margin:auto}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid #d7e0ea;background:rgba(255,255,255,.8);padding:7px 12px;border-radius:99px;font-size:10px;text-transform:uppercase;letter-spacing:.13em;font-weight:800;color:#536277}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(31,154,103,.10)}
+h1{font-size:clamp(48px,7vw,82px);line-height:.98;margin-top:23px}
+.gradient{background:linear-gradient(105deg,#243e91,#3459d4 55%,#6179dc);color:transparent;background-clip:text;-webkit-background-clip:text}
+.hero-copy{max-width:720px;margin:23px auto 0;color:#56667a;font-size:17px}
+.hero-actions{display:flex;justify-content:center;gap:11px;flex-wrap:wrap;margin-top:29px}
+.btn{border:0;border-radius:11px;padding:13px 18px;cursor:pointer;font-weight:800;transition:.2s}
+.primary{background:var(--blue);color:#fff;box-shadow:0 12px 28px rgba(52,89,212,.22)}
+.primary:hover{background:#294ab7;transform:translateY(-2px)}
+.secondary{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.secondary:hover{transform:translateY(-2px);border-color:#bdc8d6}
+
+.dashboard{margin-top:58px;background:#fff;border:1px solid var(--line);border-radius:27px;box-shadow:var(--shadow);overflow:hidden;text-align:left}
+.dash-top{height:54px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-size:11px}
+.dash-title{font-weight:800}.live{color:var(--green);font-weight:800;display:flex;gap:7px;align-items:center}.live i{width:6px;height:6px;border-radius:50%;background:var(--green)}
+.dash-body{display:grid;grid-template-columns:210px 1fr;min-height:385px}
+.sidebar{background:#fbfcfe;border-right:1px solid var(--line);padding:17px}
+.sidebar-label{font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#8a96a6;font-weight:800;margin:4px 8px 12px}
+.menu{padding:10px;border-radius:10px;color:#687689;font-size:11px;margin-bottom:4px;display:flex;justify-content:space-between}
+.menu.active{background:#ebf0ff;color:#294ca9;font-weight:800}
+.menu b{font-size:9px;color:#95a0ae}
+.workspace{padding:22px}
+.workspace-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:17px}
+.workspace-head h3{font-size:18px}.workspace-head p{font-size:10px;color:var(--muted);margin-top:2px}
+.select{border:1px solid var(--line);border-radius:8px;padding:7px 9px;font-size:10px;color:#667386}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:13px}
+.metric{border:1px solid var(--line);border-radius:13px;padding:12px;background:#fff}.metric small{font-size:8px;color:#8b96a5;text-transform:uppercase;letter-spacing:.08em}.metric strong{display:block;font-family:Manrope;font-size:20px;margin-top:3px}.up{font-size:8px;color:var(--green);font-weight:800}
+.table{border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.row{display:grid;grid-template-columns:1.35fr .75fr .7fr .5fr;padding:11px 13px;align-items:center;border-bottom:1px solid #edf0f4;font-size:10px}.row:last-child{border:0}.row.head{background:#fbfcfe;color:#8a95a4;font-size:8px;text-transform:uppercase;letter-spacing:.08em}
+.lead{font-weight:800}.lead small{display:block;font-weight:500;color:#8a95a4;font-size:8px;margin-top:2px}
+.badge{display:inline-flex;width:max-content;border-radius:99px;padding:4px 7px;font-size:8px;font-weight:800}.hot{background:#eaf7f0;color:#197b52}.warm{background:#fff5e5;color:#966a26}.cold{background:#faeef0;color:#9d5058}
+.score{font-weight:900;font-family:Manrope}
+.section{padding:100px 0}
+.section.white{background:#fff}
+.head{text-align:center;max-width:710px;margin:0 auto 45px}.kicker{font-size:9px;color:var(--blue);font-weight:900;letter-spacing:.16em;text-transform:uppercase}.head h2{font-size:clamp(34px,5vw,52px);line-height:1.05;margin-top:9px}.head p{color:#68778a;font-size:14px;margin-top:13px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:25px;box-shadow:0 12px 35px rgba(9,25,45,.055);min-height:220px}.icon{width:42px;height:42px;border-radius:12px;background:#edf2ff;color:#294ca7;display:grid;place-items:center;font-weight:900}.card h3{font-size:17px;margin-top:16px}.card p{font-size:11px;color:#788598;margin-top:7px}.card ul{list-style:none;margin-top:13px}.card li{font-size:10px;color:#687689;padding:3px 0}.card li:before{content:"✓";color:var(--green);font-weight:900;margin-right:7px}
+
+.scoring{display:grid;grid-template-columns:.82fr 1.18fr;gap:20px}
+.dark{background:var(--navy);color:#fff;border-radius:23px;padding:29px;box-shadow:var(--shadow);overflow:hidden;position:relative}.dark:after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;right:-150px;top:-170px;background:rgba(52,89,212,.25);filter:blur(35px)}.dark>*{position:relative}.dark h3{font-size:24px}.dark p{color:#9eacbd;font-size:12px;margin-top:6px}.score-list{display:grid;gap:9px;margin-top:24px}.score-item{background:#10233a;border:1px solid #253a54;border-radius:12px;padding:13px;display:flex;justify-content:space-between;align-items:center}.score-item span{font-size:10px;color:#96a6b9}.score-item strong{font-size:11px}.rule-card{background:#fff;border:1px solid var(--line);border-radius:23px;padding:27px;box-shadow:0 12px 35px rgba(9,25,45,.05)}.rule-card h3{font-size:19px}.rule{display:grid;grid-template-columns:31px 1fr auto;gap:11px;align-items:center;padding:14px 0;border-bottom:1px solid #edf0f4}.rule:last-child{border:0}.num{width:29px;height:29px;border-radius:8px;background:#f0f3f7;display:grid;place-items:center;font-size:9px;font-weight:900;color:#637184}.rule h4{font-size:11px}.rule p{font-size:9px;color:#8994a3}.weight{font-size:11px;font-weight:900;color:#3659c7}
+
+.steps{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}.step{background:#fff;border:1px solid var(--line);border-radius:15px;padding:16px 8px;text-align:center;box-shadow:0 10px 25px rgba(9,25,45,.04)}.step small{font-size:8px;color:#8d98a7;font-weight:900}.step strong{display:block;font-size:10px;margin-top:4px}.arrow{text-align:center;align-self:center;color:#9ba6b4}
+
+.profile{display:grid;grid-template-columns:.9fr 1.1fr;gap:19px}.profile-card,.timeline{background:#fff;border:1px solid var(--line);border-radius:22px;padding:25px;box-shadow:0 12px 35px rgba(9,25,45,.05)}.person{display:flex;align-items:center;gap:12px}.avatar{width:47px;height:47px;border-radius:14px;background:#e8eeff;color:#294ca7;display:grid;place-items:center;font-weight:900}.person h3{font-size:16px}.person p{font-size:9px;color:#8290a0}.big-score{margin-left:auto;width:55px;height:55px;border-radius:50%;background:#eaf7f0;border:1px solid #ccebdc;color:#197b52;display:grid;place-items:center;font-family:Manrope;font-size:14px;font-weight:900}.data{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:19px}.data-box{background:#f9fafc;border:1px solid #edf0f4;border-radius:11px;padding:10px}.data-box small{font-size:8px;color:#8994a3;text-transform:uppercase;letter-spacing:.07em}.data-box strong{display:block;font-size:10px;margin-top:3px}.timeline h3{font-size:17px}.event{display:grid;grid-template-columns:16px 1fr;gap:10px;margin-top:17px}.dot{height:12px;width:12px;border-radius:50%;background:#dfe7fa;border:3px solid #829be8;margin-top:2px;position:relative}.event:not(:last-child) .dot:after{content:"";position:absolute;width:1px;height:32px;top:9px;left:2px;background:#dce3eb}.event h4{font-size:10px}.event p{font-size:9px;color:#8994a3;margin-top:2px}
+
+.builder{display:grid;grid-template-columns:1fr 1fr;gap:19px}.panel{border-radius:22px;padding:24px}.chat-panel{background:var(--navy);color:#fff;box-shadow:var(--shadow)}.panel h3{font-size:18px}.sub{font-size:10px;color:#98a8bb;margin-top:3px}.chat{height:285px;overflow:auto;padding:15px 0;display:flex;flex-direction:column;gap:9px}.bubble{max-width:84%;font-size:11px;padding:10px 12px;border-radius:13px}.ai{background:#14263d;color:#dbe4ee}.user{background:#3659d4;color:#fff;align-self:flex-end}.chatbar{display:flex;gap:7px}.chatbar input{min-width:0;background:#102239;border:1px solid #29405b;color:#fff}.chatbar button{white-space:nowrap}.config{background:#fff;border:1px solid var(--line);box-shadow:0 12px 35px rgba(9,25,45,.05)}.config p{font-size:10px;color:#8792a1;margin-top:3px}.field{margin-top:12px}.field label{display:block;font-size:9px;font-weight:800;color:#637184;margin-bottom:5px}input,select,textarea{width:100%;border:1px solid #dce3eb;border-radius:10px;padding:9px 10px;background:#fbfcfe;color:var(--ink);outline:none;font-size:11px}textarea{resize:vertical;min-height:62px}input:focus,select:focus,textarea:focus{border-color:#6781db;box-shadow:0 0 0 3px rgba(52,89,212,.08)}
+
+.cta{padding:66px 30px;background:var(--navy);border-radius:27px;text-align:center;color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow)}.cta:before{content:"";position:absolute;width:400px;height:400px;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(52,89,212,.2);filter:blur(60px)}.cta-inner{position:relative}.cta h2{font-size:clamp(35px,5vw,51px)}.cta p{max-width:610px;margin:10px auto 22px;color:#a6b4c5;font-size:13px}
+footer{border-top:1px solid var(--line);padding:35px 0;color:#7a8797;font-size:10px}.footer{display:flex;justify-content:space-between;gap:15px}
+
+.toast{position:fixed;right:20px;bottom:20px;background:#10243b;color:#fff;padding:13px 15px;border-radius:11px;font-size:11px;opacity:0;transform:translateY(10px);pointer-events:none;transition:.25s;z-index:200}.toast.show{opacity:1;transform:none}
+
+@media(max-width:900px){
+.nav-links{display:none}.dash-body{grid-template-columns:1fr}.sidebar{display:none}.cards{grid-template-columns:1fr 1fr}.scoring,.profile,.builder{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}}
+@media(max-width:600px){
+.nav-btn{display:none}.hero{padding-top:130px}.hero h1{font-size:48px}.cards{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}.row{grid-template-columns:1.3fr .7fr .55fr .45fr}.data{grid-template-columns:1fr}.footer{flex-direction:column}}
+</style>
+</head>
+
+<body>
+<header class="nav">
+<div class="container nav-inner">
+<a class="brand" href="#top"><span class="logo">O</span>OrionPulse</a>
+<nav class="nav-links">
+<a href="#capabilities">Capabilities</a>
+<a href="#scoring">Scoring</a>
+<a href="#workflow">Workflow</a>
+<a href="#builder">Build Agent</a>
+</nav>
+<a class="nav-btn" href="#builder">Build Agent</a>
+</div>
+</header>
+
+<main id="top">
+<section class="hero">
+<div class="container hero-content">
+<div class="eyebrow"><span class="status-dot"></span> OrionPulse AI Sales Workforce</div>
+<h1>Turn enquiries into<br><span class="gradient">sales-ready opportunities.</span></h1>
+<p class="hero-copy">An AI Lead Qualification Agent that understands intent, asks intelligent questions, scores every prospect and routes the opportunities your sales team should act on first.</p>
+<div class="hero-actions">
+<a class="btn primary" href="#builder">Build My Qualification Agent</a>
+<a class="btn secondary" href="#scoring">Explore the Engine</a>
+</div>
+
+<div class="dashboard">
+<div class="dash-top"><div class="dash-title">◈ OrionPulse / Qualification Center</div><div class="live"><i></i> Agent active</div></div>
+<div class="dash-body">
+<aside class="sidebar">
+<div class="sidebar-label">Sales Intelligence</div>
+<div class="menu active">Overview <b>⌘</b></div>
+<div class="menu">New Leads <b>24</b></div>
+<div class="menu">Hot Leads <b>8</b></div>
+<div class="menu">Qualification <b>12</b></div>
+<div class="menu">Follow-ups <b>31</b></div>
+<div class="menu">Settings <b>⚙</b></div>
+</aside>
+<div class="workspace">
+<div class="workspace-head">
+<div><h3>Lead Qualification</h3><p>AI-ranked opportunities requiring attention</p></div>
+<div class="select">Today · All sources</div>
+</div>
+<div class="metrics">
+<div class="metric"><small>Total leads</small><strong>148</strong><span class="up">↑ 18% this week</span></div>
+<div class="metric"><small>Qualified</small><strong>63</strong><span class="up">42.6% qualification</span></div>
+<div class="metric"><small>Hot leads</small><strong>19</strong><span class="up">↑ 7 this week</span></div>
+<div class="metric"><small>Avg. score</small><strong>71</strong><span class="up">↑ 9 points</span></div>
+</div>
+<div class="table">
+<div class="row head"><div>Lead</div><div>Intent</div><div>Status</div><div>Score</div></div>
+<div class="row"><div class="lead">Arjun Sharma<small>Real Estate · ₹2Cr budget</small></div><div>High</div><div><span class="badge hot">HOT</span></div><div class="score">94</div></div>
+<div class="row"><div class="lead">Priya Mehta<small>Clinic · Website + SEO</small></div><div>High</div><div><span class="badge hot">HOT</span></div><div class="score">88</div></div>
+<div class="row"><div class="lead">Rahul Singh<small>Agency · SEO</small></div><div>Medium</div><div><span class="badge warm">WARM</span></div><div class="score">67</div></div>
+<div class="row"><div class="lead">Neha Das<small>Retail · Research</small></div><div>Low</div><div><span class="badge cold">COLD</span></div><div class="score">31</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="capabilities">
+<div class="container">
+<div class="head"><div class="kicker">Core Capabilities</div><h2>Not another contact form.</h2><p>Build an agent that understands the conversation behind the lead and produces useful sales intelligence.</p></div>
+<div class="cards">
+<article class="card"><div class="icon">◎</div><h3>Intent Detection</h3><p>Identify whether a prospect is browsing, researching, comparing or preparing to buy.</p><ul><li>Buying signals</li><li>Urgency detection</li><li>Conversation analysis</li></ul></article>
+<article class="card"><div class="icon">◈</div><h3>AI Lead Scoring</h3><p>Calculate a dynamic score based on your business-specific qualification model.</p><ul><li>Hot / Warm / Cold</li><li>Custom weights</li><li>Real-time scoring</li></ul></article>
+<article class="card"><div class="icon">?</div><h3>Smart Questions</h3><p>The agent asks the next best question instead of forcing every visitor through a static form.</p><ul><li>Budget</li><li>Need</li><li>Timeline</li></ul></article>
+<article class="card"><div class="icon">↗</div><h3>Priority Routing</h3><p>Send valuable opportunities to the right salesperson or workflow automatically.</p><ul><li>Sales alerts</li><li>Team assignment</li><li>Human handoff</li></ul></article>
+<article class="card"><div class="icon">⌁</div><h3>Lead Enrichment</h3><p>Build a richer profile from submitted information, source and conversation context.</p><ul><li>Business context</li><li>Source tracking</li><li>Conversation history</li></ul></article>
+<article class="card"><div class="icon">▦</div><h3>Next-Best Action</h3><p>Give salespeople a clear explanation of what happened and what they should do next.</p><ul><li>AI summary</li><li>Recommended action</li><li>Confidence signals</li></ul></article>
+</div>
+</div>
+</section>
+
+<section class="section white" id="scoring">
+<div class="container">
+<div class="head"><div class="kicker">Qualification Engine</div><h2>Define what a good lead means.</h2><p>Different businesses need different qualification models. Make the scoring logic yours.</p></div>
+<div class="scoring">
+<div class="dark">
+<h3>Lead Priority</h3><p>Example service-business scoring model.</p>
+<div class="score-list">
+<div class="score-item"><strong>HOT · Sales-ready</strong><span>80–100</span></div>
+<div class="score-item"><strong>WARM · Nurture / contact</strong><span>50–79</span></div>
+<div class="score-item"><strong>COLD · Low priority</strong><span>0–49</span></div>
+</div>
+</div>
+<div class="rule-card">
+<h3>Qualification Rules</h3>
+<div class="rule"><div class="num">01</div><div><h4>Budget fit</h4><p>Does the budget match your offer?</p></div><div class="weight">+30</div></div>
+<div class="rule"><div class="num">02</div><div><h4>Urgency</h4><p>Does the prospect need a solution soon?</p></div><div class="weight">+25</div></div>
+<div class="rule"><div class="num">03</div><div><h4>Service fit</h4><p>Does the requirement match your service?</p></div><div class="weight">+20</div></div>
+<div class="rule"><div class="num">04</div><div><h4>Decision authority</h4><p>Can the prospect influence the purchase?</p></div><div class="weight">+15</div></div>
+<div class="rule"><div class="num">05</div><div><h4>Engagement</h4><p>Has the prospect replied or requested details?</p></div><div class="weight">+10</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="workflow">
+<div class="container">
+<div class="head"><div class="kicker">Agent Workflow</div><h2>From visitor to qualified opportunity.</h2><p>The agent works continuously while your team stays in control of the actual sale.</p></div>
+<div class="steps">
+<div class="step"><small>01</small><strong>Visitor</strong></div><div class="arrow">→</div>
+<div class="step"><small>02</small><strong>Conversation</strong></div><div class="arrow">→</div>
+<div class="step"><small>03</small><strong>Qualify</strong></div><div class="arrow">→</div>
+<div class="step"><small>04</small><strong>Score</strong></div><div class="arrow">→</div>
+<div class="step"><small>05</small><strong>Route</strong></div><div class="arrow">→</div>
+<div class="step"><small>06</small><strong>Follow-up</strong></div><div class="arrow">→</div>
+<div class="step"><small>07</small><strong>Sales</strong></div>
+</div>
+</div>
+</section>
+
+<section class="section white">
+<div class="container">
+<div class="head"><div class="kicker">Sales Intelligence</div><h2>Give salespeople context, not just contact details.</h2><p>A qualified lead should arrive with the information needed to start a better conversation.</p></div>
+<div class="profile">
+<div class="profile-card">
+<div class="person"><div class="avatar">AS</div><div><h3>Arjun Sharma</h3><p>Real Estate · Website enquiry</p></div><div class="big-score">94</div></div>
+<div class="data">
+<div class="data-box"><small>Budget</small><strong>₹1.5Cr – ₹2Cr</strong></div>
+<div class="data-box"><small>Timeline</small><strong>Within 30 days</strong></div>
+<div class="data-box"><small>Requirement</small><strong>Commercial property</strong></div>
+<div class="data-box"><small>Authority</small><strong>Decision maker</strong></div>
+<div class="data-box"><small>Source</small><strong>Google Ads</strong></div>
+<div class="data-box"><small>Intent</small><strong>High</strong></div>
+</div>
+</div>
+<div class="timeline">
+<h3>AI Qualification Timeline</h3>
+<div class="event"><div class="dot"></div><div><h4>Lead captured</h4><p>Website conversation started · 10:42 AM</p></div></div>
+<div class="event"><div class="dot"></div><div><h4>Requirement identified</h4><p>Commercial property purchase · 10:44 AM</p></div></div>
+<div class="event"><div class="dot"></div><div><h4>Budget confirmed</h4><p>₹1.5Cr–₹2Cr · 10:46 AM</p></div></div>
+<div class="event"><div class="dot"></div><div><h4>AI classified as HOT</h4><p>Score 94/100 · high confidence · 10:47 AM</p></div></div>
+<div class="event"><div class="dot"></div><div><h4>Human handoff recommended</h4><p>Immediate sales contact recommended.</p></div></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="builder">
+<div class="container">
+<div class="head"><div class="kicker">Build Your Agent</div><h2>Configure the OrionPulse qualification brain.</h2><p>This front-end prototype can become the control layer for your real AI backend, email, CRM and messaging workflows.</p></div>
+<div class="builder">
+<div class="panel chat-panel">
+<h3>AI Qualification Agent</h3><div class="sub">Interactive prototype</div>
+<div class="chat" id="chat">
+<div class="bubble ai">Hi. I'm the OrionPulse Lead Qualification Agent. What service are you interested in?</div>
+</div>
+<div class="chatbar"><input id="message" placeholder="Type the prospect's answer..."><button class="btn primary" id="send">Send</button></div>
+</div>
+<form class="panel config" id="config">
+<h3>Agent Configuration</h3><p>These settings can later be stored in your backend.</p>
+<div class="field"><label>Business name</label><input name="business" required placeholder="Example Business"></div>
+<div class="field"><label>Business type</label><input name="type" required placeholder="Agency / Clinic / Real Estate"></div>
+<div class="field"><label>Primary service</label><input name="service" required placeholder="What do you sell?"></div>
+<div class="field"><label>Ideal customer</label><input name="customer" required placeholder="Who should be qualified?"></div>
+<div class="field"><label>Minimum budget</label><input name="budget" placeholder="₹50,000"></div>
+<div class="field"><label>What makes a lead HOT?</label><textarea name="hot" required placeholder="Example: budget above ₹1L + needs service within 30 days"></textarea></div>
+<div class="field"><label>HOT lead destination</label><select name="route"><option>Email</option><option>WhatsApp</option><option>CRM</option><option>Email + WhatsApp</option><option>CRM + Human Handoff</option></select></div>
+<button class="btn primary" style="width:100%;margin-top:17px" type="submit">Activate Qualification Agent</button>
+</form>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+<div class="cta">
+<div class="cta-inner">
+<h2>Stop treating every lead equally.</h2>
+<p>OrionPulse identifies who is ready, who needs nurturing and who should never consume your sales team's time.</p>
+<a class="btn primary" href="#builder">Build the Agent</a>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="container footer">
+<div>© 2026 OrionPulse · AI Lead Qualification Infrastructure</div>
+<div>Capture · Understand · Score · Route · Convert</div>
+</div>
+</footer>
+
+<div class="toast" id="toast">Agent configuration captured — connect your OrionPulse backend to activate it.</div>
+
+<script>
+const chat=document.getElementById("chat");
+const input=document.getElementById("message");
+const send=document.getElementById("send");
+
+function bubble(text,type){
+  const el=document.createElement("div");
+  el.className="bubble "+type;
+  el.textContent=text;
+  chat.appendChild(el);
+  chat.scrollTop=chat.scrollHeight;
+}
+function agentReply(text){
+  const t=text.toLowerCase();
+  let reply;
+  if(t.includes("budget")||t.includes("₹")||t.includes("lakh")||t.includes("crore")){
+    reply="Good. What is your expected timeline for starting the project — immediately, within 30 days, or later?";
+  }else if(t.includes("30")||t.includes("immediate")||t.includes("urgent")||t.includes("week")){
+    reply="That indicates strong urgency. Are you the final decision-maker for this purchase?";
+  }else if(t.includes("yes")||t.includes("owner")||t.includes("founder")||t.includes("decision")){
+    reply="Excellent. Based on the signals so far, this looks like a high-intent opportunity. I would recommend a priority sales handoff.";
+  }else if(t.includes("later")||t.includes("research")||t.includes("just looking")){
+    reply="Understood. This appears to be an early-stage opportunity. I would classify it as WARM/COLD and place it into a nurture sequence.";
+  }else{
+    reply="Thanks. To qualify this opportunity, what approximate budget have you allocated and when would you like to start?";
+  }
+  setTimeout(()=>bubble(reply,"ai"),450);
+}
+function submitChat(){
+  const value=input.value.trim();
+  if(!value)return;
+  bubble(value,"user");
+  input.value="";
+  agentReply(value);
+}
+send.addEventListener("click",submitChat);
+input.addEventListener("keydown",e=>{if(e.key==="Enter")submitChat()});
+
+document.getElementById("config").addEventListener("submit",e=>{
+  e.preventDefault();
+  const data=Object.fromEntries(new FormData(e.target).entries());
+  console.log("OrionPulse Agent Configuration",data);
+  const toast=document.getElementById("toast");
+  toast.classList.add("show");
+  setTimeout(()=>toast.classList.remove("show"),3500);
+  e.target.reset();
+});
+</script>
+</body>
+</html>
